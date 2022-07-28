@@ -9,6 +9,10 @@
 ]]
 
 ScoreState = Class{__includes = BaseState}
+local GOLD_MEDAL = love.graphics.newImage('gold.png')
+local SILVER_MEDAL = love.graphics.newImage('silver.png')
+local BRONZE_MEDAL = love.graphics.newImage('bronze.png')
+
 
 --[[
     When we enter the score state, we expect to receive the score
@@ -27,6 +31,15 @@ end
 
 function ScoreState:render()
     -- simply render the score to the middle of the screen
+    if(self.score) < 5 then
+        medal = BRONZE_MEDAL
+    elseif (self.score) < 10 then    
+        medal = SILVER_MEDAL
+    else
+        medal = GOLD_MEDAL
+    end
+    love.graphics.draw(medal, (VIRTUAL_WIDTH/2) - 30, 200, 0 ,50/medal:getWidth(),60/medal:getHeight())
+
     love.graphics.setFont(flappyFont)
     love.graphics.printf('Oof! You lost!', 0, 64, VIRTUAL_WIDTH, 'center')
 
